@@ -20,7 +20,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var startStopWatch = true
     var addLap = false
     var displayString = ""
-    
+    var lapsArray = [String]()
     
     
     
@@ -49,14 +49,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
-cell.backgroundColor = self.view.backgroundColor
-        cell.textLabel?.text = "Lap"
-        cell.detailTextLabel?.text = "00:00:00"
+cell.backgroundColor = UIColor.black
+        cell.textLabel?.textColor = UIColor.white
+        cell.textLabel?.text = "Lap \(lapsArray.count -    indexPath.row)"
+        cell.detailTextLabel?.textColor = UIColor.white
+        
+        cell.detailTextLabel?.text = lapsArray[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return lapsArray.count
     }
     
     //updateStopWatch function
@@ -113,9 +116,31 @@ cell.backgroundColor = self.view.backgroundColor
         
         
         
+    }
+    
+    @IBAction func lapResetBTPressed(_ sender: UIButton) {
         
         
-        
+        if addLap == true {
+            
+            lapsArray.insert(displayString, at: 0)
+            lapsTableView.reloadData()
+            
+            
+            
+        } else {
+            addLap = false
+            lapResetLB.setImage(UIImage(named: "Lap.png"), for: .normal)
+            lapsArray.removeAll()
+            lapsTableView.reloadData()
+            
+            fractions = 0
+            seconds = 0
+            minutes = 0
+            
+            displayString = "00:00.00"
+            DisplayLB.text = displayString
+        }
         
         
         
@@ -124,10 +149,15 @@ cell.backgroundColor = self.view.backgroundColor
         
     }
     
-    @IBAction func lapResetBTPressed(_ sender: UIButton) {
-    }
+    
+    
     
     
 
 }
+
+
+
+
+
 
