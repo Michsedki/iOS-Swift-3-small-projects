@@ -20,10 +20,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var timerHistoryTableView: UITableView!
     
     
+    // Mark: - Global Variables
+    /// Identify Variables
+    
+    var timer = Timer()
+    var totalSeconds: Float = 0
+    var lapHistoryArray = [String]()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        timerLB.text = "Press Start."
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,15 +41,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     
-    
+    //MARK: - tableView methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = timerHistoryTableView.dequeueReusableCell(withIdentifier: "lapHistoryCell")
-        cell?.textLabel?.text = "test"
+        cell?.textLabel?.text = lapHistoryArray[indexPath.row]
         return cell!
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return lapHistoryArray.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -49,6 +58,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
+    // MARK: - UpdateTimer Function
+    // function to update timer label every time the timer ticking
+    func updateTimer() {
+        
+        totalSeconds += 0.01
+        let totalSecondsMulti100: Int = Int(totalSeconds * 100)
+        let min = Int(totalSeconds/60)
+        let hour = Int(min/60)
+        
+        let minString = (min == 0) ? "00" : "\(min)"
+        let hourString = (hour == 0) ? "00" : "\(hour)"
+        let secondString = (totalSeconds < 10) ? "0\(Float(totalSecondsMulti100)/100)" : "\(Float(totalSecondsMulti100)/100)"
+        
+        timerLB.text = "\(hourString):\(minString):\(secondString)"
+        
+        
+        
+    }
     
     
     
@@ -57,23 +84,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
-    
-    
+    // MARK: - Buttons IBActions
     /// IBActions for the start, stop and lap Buttons
     
     // Button action for start the watch
     @IBAction func startBTPressed(_ sender: UIButton) {
-        print("Start Pressed")
+        // test button pressed
+        // print("Start Pressed")
+        
+        
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
+        
+        
     }
     
     // Button action for stop the watch
     @IBAction func stopBTPressed(_ sender: UIButton) {
-        print("Stop Pressed")
+       // test button pressed
+        //print("Stop Pressed")
+        timer.invalidate()
+        
     }
     
     // Button action for Lap the watch
     @IBAction func lapBTPressed(_ sender: UIButton) {
-        print("Lap Pressed")
+        // test button pressed
+        //print("Lap Pressed")
+       
+        lapHistoryArray.append(timerLB.text!)
+        timerHistoryTableView.reloadData()
+        
+        
+        
     }
     
     

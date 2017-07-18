@@ -50,7 +50,7 @@
                                     <action selector="stopBTPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1yx-t3-n6p"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyn-9f-JP3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyn-9f-JP3">
                                 <rect key="frame" x="66" y="70" width="243" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="nfd-Ma-uyV"/>
