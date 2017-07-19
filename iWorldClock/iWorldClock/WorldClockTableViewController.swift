@@ -8,11 +8,14 @@
 
 import UIKit
 
-class WorldClockTableViewController: UITableViewController {
+class WorldClockTableViewController: UITableViewController, WorldClockProtocol {
     
     
     //MARK: - Variables
-    var timeZonesToDisplay = ["GMT", "Europe/Paris", "Asia/Dubai", "Europe/Dublin", "America/New_York"]
+    var timeZonesToDisplay = [String]()
+    
+    
+    
     
     
     
@@ -21,6 +24,14 @@ class WorldClockTableViewController: UITableViewController {
         
         // add an Edit button on the left of the navigation bar
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+    }
+    
+    
+    
+    //MARK: - conform to worldclock protocol
+    func addTimeZone(timeZone: String) {
+        timeZonesToDisplay.append(timeZone)
+        tableView.reloadData()
     }
     
     
@@ -85,14 +96,23 @@ class WorldClockTableViewController: UITableViewController {
      }
     
     
-    /*
+   
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+        if segue.identifier == "TimeZonesVC" {
+            let destination = segue.destination as! TimeZonesTableViewController
+            destination.delegate = self
+        }
      }
-     */
+    
+    
+    //MARK: - IBActions
+    
+    
+    
+    
+    
     
 }
